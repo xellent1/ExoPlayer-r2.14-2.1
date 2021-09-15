@@ -13,6 +13,7 @@
 // limitations under the License.
 
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
 afterEvaluate {
     publishing {
         repositories {
