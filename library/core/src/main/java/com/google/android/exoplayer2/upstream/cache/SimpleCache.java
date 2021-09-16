@@ -57,7 +57,9 @@ class WorkPref{
   Boolean getPrefSD(){
     return sPref.getBoolean("b_sd", false);
   }
-
+  String getActualPath(){
+    return sPref.getString("b_path", "");
+  }
 }
 
 /**
@@ -440,23 +442,25 @@ public final class SimpleCache implements Cache {
     pf.init(contxt);  //MyApp.getContext()
     //pf.setPrefSD(true);
     Boolean isSD = pf.getPrefSD();
-    Log.e("XXX", "НА SD = " + isSD);
-
+    String pathLoad = pf.getActualPath();
+    Log.e("XXX", "НА SD=" + isSD + "; path=" + pathLoad);
 
     //GetSk d = new GetSk();
-
     //Integer x = Xxx();//.getX();
     //double rnd = Math.random()*2;
     //Log.e("XXX", "XXX DIR ВЫБИРАЕМ = " + cacheDir + " RND=" + rnd);
-    if(isSD) {
-      //context.getExternalSDCardDirectory()
-      //cacheDir = new File(Environment.getExternalStorageDirectory().getPath());
-      cacheDir = new File("/storage/0F14-170C/Android/data/filmsclub.android/cache");
-    }else {
-      //context.filesDir
-      //cacheDir = contxt.getFilesDir();
-      cacheDir = new File("/data/user/0/filmsclub.android/files/downloads");
+    if(!pathLoad.isEmpty()) {
+      if(isSD) {
+        //context.getExternalSDCardDirectory()
+        //cacheDir = new File(Environment.getExternalStorageDirectory().getPath());
+        cacheDir = new File(pathLoad); //new File("/storage/0F14-170C/Android/data/filmsclub.android/cache");
+      }else {
+        //context.filesDir
+        //cacheDir = contxt.getFilesDir();
+        cacheDir = new File(pathLoad);  //new File("/data/user/0/filmsclub.android/files/downloads");
+      }
     }
+
     Log.e("XXX", "XXX DIR ВЫБИРАЕМ = " + cacheDir + ";");
     if (!cacheDir.exists()) {
       // The cache directory has been deleted from underneath us. Recreate it, and remove in-memory

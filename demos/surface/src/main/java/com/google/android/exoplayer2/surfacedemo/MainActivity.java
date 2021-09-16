@@ -19,6 +19,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceControl;
 import android.view.SurfaceHolder;
@@ -45,6 +47,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
+import java.io.File;
 import java.util.UUID;
 
 /** Activity that demonstrates use of {@link SurfaceControl} with ExoPlayer. */
@@ -73,6 +76,7 @@ public final class MainActivity extends Activity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.main_activity);
     playerControlView = findViewById(R.id.player_control_view);
     fullScreenView = findViewById(R.id.full_screen_view);
