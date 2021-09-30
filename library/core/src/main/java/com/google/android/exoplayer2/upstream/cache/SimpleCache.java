@@ -87,6 +87,7 @@ public final class SimpleCache implements Cache {
   private static final HashSet<File> lockedCacheDirs = new HashSet<>();
 
   private File cacheDir;
+  private File cacheDirDownload;
   private final CacheEvictor evictor;
   private final CachedContentIndex contentIndex;
   @Nullable private final CacheFileMetadataIndex fileIndex;
@@ -453,24 +454,24 @@ public final class SimpleCache implements Cache {
       if(isSD) {
         //context.getExternalSDCardDirectory()
         //cacheDir = new File(Environment.getExternalStorageDirectory().getPath());
-        cacheDir = new File(pathLoad); //new File("/storage/0F14-170C/Android/data/filmsclub.android/cache");
+        cacheDirDownload = new File(pathLoad); //new File("/storage/0F14-170C/Android/data/filmsclub.android/cache");
       }else {
         //context.filesDir
         //cacheDir = contxt.getFilesDir();
-        cacheDir = new File(pathLoad);  //new File("/data/user/0/filmsclub.android/files/downloads");
+        cacheDirDownload = new File(pathLoad);  //new File("/data/user/0/filmsclub.android/files/downloads");
       }
     }
 
-    Log.e("XXX", "XXX DIR ВЫБИРАЕМ = " + cacheDir + ";");
-    if (!cacheDir.exists()) {
+    Log.e("XXX", "XXX DIR ВЫБИРАЕМ = " + cacheDirDownload + ";");
+    if (!cacheDirDownload.exists()) {
       // The cache directory has been deleted from underneath us. Recreate it, and remove in-memory
       // spans corresponding to cache files that no longer exist.
-      createCacheDirectories(cacheDir);
+      createCacheDirectories(cacheDirDownload);
       removeStaleSpans();
     }
     evictor.onStartFile(this, key, position, length);
     // Randomly distribute files into subdirectories with a uniform distribution.
-    File cacheSubDir = new File(cacheDir, Integer.toString(random.nextInt(SUBDIRECTORY_COUNT)));
+    File cacheSubDir = new File(cacheDirDownload, Integer.toString(random.nextInt(SUBDIRECTORY_COUNT)));
     if (!cacheSubDir.exists()) {
       createCacheDirectories(cacheSubDir);
     }
