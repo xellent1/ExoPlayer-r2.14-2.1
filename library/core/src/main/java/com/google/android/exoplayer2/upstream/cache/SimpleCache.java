@@ -462,7 +462,7 @@ public final class SimpleCache implements Cache {
       }
     }
 
-    Log.e("XXX", "XXX DIR ВЫБИРАЕМ = " + cacheDirDownload + ";");
+    Log.e("XXX", "XXX cacheDirDownload ВЫБИРАЕМ = " + cacheDirDownload + ";");
     if (!cacheDirDownload.exists()) {
       // The cache directory has been deleted from underneath us. Recreate it, and remove in-memory
       // spans corresponding to cache files that no longer exist.
